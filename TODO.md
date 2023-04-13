@@ -1,0 +1,11 @@
+- [x] Write code comments
+- [x] Finish tests
+- [x] Write readme
+- [ ] Write design doc
+- [ ] Github actions
+- [ ] Clean up project
+- [ ] Recheck makefile
+- [ ] Add .gitignore
+- [ ] Add architectural diagram
+- [ ] Add assignment analysis
+

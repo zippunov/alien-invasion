@@ -1,0 +1,14 @@
+B south=Y north=G
+C west=I east=O south=S north=Z
+G east=J west=B south=N north=Y
+I south=C east=J
+J north=X west=G
+L east=B west=N
+N north=B south=I west=X
+O east=Z west=L north=X south=Q
+P east=C north=S
+Q north=P south=C west=I east=Y
+S east=L south=N
+X south=N west=C
+Y west=G east=Q south=C
+Z west=Q

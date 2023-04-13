@@ -1,0 +1,26 @@
+A east=T north=K south=O
+B east=Q
+C east=N south=S north=R
+D north=L east=X
+E south=N east=H
+F south=G west=P
+G west=M
+H north=T west=G east=Y south=C
+I north=X west=W east=J
+J north=X east=I
+K east=N
+L north=M south=Q
+M west=N south=L
+N west=P north=A
+O west=I north=Q
+P south=S north=L west=H east=C
+Q east=U south=E
+R south=Z west=S
+S south=E
+T north=P west=Q
+U south=M east=D west=E
+V east=K
+W east=H north=C south=B
+X east=L
+Y north=M west=V south=I
+Z west=Y
