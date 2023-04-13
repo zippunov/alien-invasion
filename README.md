@@ -1,3 +1,5 @@
+![workflow passed](https://github.com/zippunov/alien-invasion/actions/workflows/go.yml/badge.svg)
+
 # Aliens Invasion
 
 ## Table of contents
