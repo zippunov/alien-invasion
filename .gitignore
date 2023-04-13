@@ -1,3 +1,6 @@
 .DS_Store
 .editorconfig
 .idea/
+
+dist/alien-invasion
+dist/alien-mapgen
