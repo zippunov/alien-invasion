@@ -1,0 +1,112 @@
+@startuml
+namespace domain {
+    class Alien << (S,Aquamarine) >> {
+        + String() string
+
+    }
+    class City << (S,Aquamarine) >> {
+        - inInroads RoadSet
+
+        + Name string
+        + OutRoad <font color=blue>map</font>[Direction]*City
+        + Aliens []Alien
+
+        + String() string
+        + Directions() []Direction
+
+    }
+    class Direction << (S,Aquamarine) >> {
+        + String() string
+
+    }
+    class Map << (S,Aquamarine) >> {
+        - validateLink(from string, to string, direction Direction) error
+
+        + ListCities() []*City
+        + LinkCities(from string, to string, direction Direction) error
+        + DestroyCity(city *City) 
+        + InitCity(name string) *City
+
+    }
+    class RoadSet << (S,Aquamarine) >> {
+        - add(r road) 
+        - remove(r road) 
+
+    }
+    class domain.Alien << (T, #FF7700) >>  {
+    }
+    class domain.Direction << (T, #FF7700) >>  {
+    }
+    class domain.Map << (T, #FF7700) >>  {
+    }
+    class domain.RoadSet << (T, #FF7700) >>  {
+    }
+    class road << (S,Aquamarine) >> {
+        - from *City
+        - direction Direction
+
+    }
+    class void << (S,Aquamarine) >> {
+    }
+}
+
+
+namespace infrastructure {
+    class Config << (S,Aquamarine) >> {
+        - mapFilePath string
+        - aliensCount int
+        - outFilePath string
+        - log <font color=blue>func</font>(string, ...any) 
+
+        + Help bool
+
+    }
+    class Infra << (S,Aquamarine) >> {
+        - reader io.ReadCloser
+        - aliensCount int
+        - writer io.WriteCloser
+        - log <font color=blue>func</font>(string, ...any) 
+
+        + Shutdown() 
+        + In() io.Reader
+        + Out() io.Writer
+        + AliensCount() int
+        + Log() <font color=blue>func</font>(string, ...any) 
+
+    }
+}
+
+"usecases.IInfra" <|-- "infrastructure.Infra"
+
+namespace usecases {
+    interface IInfra  {
+        + In() io.Reader
+        + Out() io.Writer
+        + AliensCount() int
+        + Log() <font color=blue>func</font>(string, ...any) 
+
+    }
+    class Scenario << (S,Aquamarine) >> {
+        - out io.Writer
+        - worldMap domain.Map
+        - aliensCount int
+        - aliens <font color=blue>map</font>[domain.Alien]*domain.City
+        - movesLeft []int
+        - log <font color=blue>func</font>(string, ...any) 
+
+        - seedAliens() 
+        - aliensQueue() []domain.Alien
+        - moveAlien(alien domain.Alien) *domain.City
+        - destroyCity(city *domain.City) 
+
+        + Run() error
+
+    }
+}
+
+
+"__builtin__.int" #.. "domain.Alien"
+"__builtin__.uint" #.. "domain.Direction"
+"domain.<font color=blue>map</font>[road]{packageName}void" #.. "domain.RoadSet"
+"domain.<font color=blue>map</font>[string]*City" #.. "domain.Map"
+@enduml
