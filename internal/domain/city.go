@@ -6,7 +6,7 @@ type City struct {
 	Name      string
 	OutRoad   map[Direction]*City
 	inInroads RoadSet
-	Aliens    []int
+	Aliens    []Alien
 }
 
 // String is a part of a Stringer interface implementation.

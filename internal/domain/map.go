@@ -72,7 +72,7 @@ func (m *Map) InitCity(name string) *City {
 		Name:      name,
 		OutRoad:   map[Direction]*City{},
 		inInroads: RoadSet{},
-		Aliens:    []int{},
+		Aliens:    []Alien{},
 	}
 	return (*m)[name]
 }

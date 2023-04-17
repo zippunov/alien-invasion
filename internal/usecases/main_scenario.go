@@ -5,7 +5,7 @@ package usecases
 
 import (
 	"fmt"
-	domain2 "github.com/zippunov/alien-invasion/internal/domain"
+	"github.com/zippunov/alien-invasion/internal/domain"
 	"github.com/zippunov/alien-invasion/internal/encoding"
 	"io"
 	"math/rand"
@@ -25,16 +25,16 @@ type IInfra interface {
 // Aliens are represented by int number from 0 to aliensCount-1
 type Scenario struct {
 	out         io.Writer
-	worldMap    domain2.Map                   // Cities graph
+	worldMap    domain.Map                    // Cities graph
 	aliensCount int                           // start Aliens count
-	aliens      map[int]*domain2.City         // maps each alien to a single City
+	aliens      map[domain.Alien]*domain.City // maps each alien to a single City
 	movesLeft   []int                         // holds number of moves left for each alien by the Alien integer id.
 	log         func(format string, a ...any) // logger function
 }
 
 // InitScenario scenario initialization with provided infrastructure
 func InitScenario(infra IInfra) (Scenario, error) {
-	m := domain2.Map{}
+	m := domain.Map{}
 	if err := encoding.UnmarshalTxt(infra.In(), m); err != nil {
 		return Scenario{}, err
 	}
@@ -43,11 +43,12 @@ func InitScenario(infra IInfra) (Scenario, error) {
 		return Scenario{}, fmt.Errorf("aliens count is greater than number of  cities (%d)", len(m))
 	}
 
-	aliens := make(map[int]*domain2.City, n)
+	aliens := make(map[domain.Alien]*domain.City, n)
 	movesLeft := make([]int, n)
 	for i := 0; i < n; i++ {
-		aliens[i] = nil
-		movesLeft[i] = 10000
+		alien := domain.Alien(i)
+		aliens[alien] = nil
+		movesLeft[alien] = 10000
 	}
 	return Scenario{
 		out:         infra.Out(),
@@ -97,14 +98,15 @@ func (s *Scenario) seedAliens() {
 		cities[i], cities[j] = cities[j], cities[i]
 	})
 	for i := 0; i < s.aliensCount; i++ {
-		s.aliens[i] = cities[i]
-		s.aliens[i].Aliens = append(s.aliens[i].Aliens, i)
+		alien := domain.Alien(i)
+		s.aliens[alien] = cities[i]
+		s.aliens[alien].Aliens = append(s.aliens[alien].Aliens, domain.Alien(i))
 	}
 }
 
 // aliensQueue filters all Aliens that able to make a move and returns filtered Aliens in random order.
-func (s *Scenario) aliensQueue() []int {
-	queue := make([]int, 0, len(s.aliens))
+func (s *Scenario) aliensQueue() []domain.Alien {
+	queue := make([]domain.Alien, 0, len(s.aliens))
 	for alien := range s.aliens {
 		if s.movesLeft[alien] > 0 {
 			queue = append(queue, alien)
@@ -117,7 +119,7 @@ func (s *Scenario) aliensQueue() []int {
 }
 
 // moveAlien executed single Alien move. The move Direction os randomly chosen among available out-roads in the City
-func (s *Scenario) moveAlien(alien int) *domain2.City {
+func (s *Scenario) moveAlien(alien domain.Alien) *domain.City {
 	city := s.aliens[alien]
 	directions := city.Directions()
 	dirCount := len(directions)
@@ -134,7 +136,7 @@ func (s *Scenario) moveAlien(alien int) *domain2.City {
 }
 
 // destroyCity removes City and occupying Aliens from the Map if there are 2 Aliens in the City
-func (s *Scenario) destroyCity(city *domain2.City) {
+func (s *Scenario) destroyCity(city *domain.City) {
 	if len(city.Aliens) < 2 {
 		return
 	}
