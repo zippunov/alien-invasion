@@ -61,3 +61,5 @@ There are several rules of relationship between layers.
 - the outer layers have dependencies on internal layers but not vice versa.
 - The adapter layer is abstracted from the concrete implementation of the Infrastructure. It makes it possible to apply TDD with test infrastructure implementation.
 - SOLID principle
+
+![Clean Architecture](clean_architecture.svg)
