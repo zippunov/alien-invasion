@@ -38,7 +38,7 @@ func TestScenario_Run(t *testing.T) {
 		out         io.Writer
 		worldMap    domain.Map
 		aliensCount int
-		aliens      map[int]*domain.City
+		aliens      map[domain.Alien]*domain.City
 		movesLeft   []int
 		log         func(format string, a ...any)
 	}
@@ -71,7 +71,7 @@ func TestScenario_aliensQueue(t *testing.T) {
 		out         io.Writer
 		worldMap    domain.Map
 		aliensCount int
-		aliens      map[int]*domain.City
+		aliens      map[domain.Alien]*domain.City
 		movesLeft   []int
 		log         func(format string, a ...any)
 	}
@@ -104,7 +104,7 @@ func TestScenario_destroyCity(t *testing.T) {
 		out         io.Writer
 		worldMap    domain.Map
 		aliensCount int
-		aliens      map[int]*domain.City
+		aliens      map[domain.Alien]*domain.City
 		movesLeft   []int
 		log         func(format string, a ...any)
 	}
@@ -138,12 +138,12 @@ func TestScenario_moveAlien(t *testing.T) {
 		out         io.Writer
 		worldMap    domain.Map
 		aliensCount int
-		aliens      map[int]*domain.City
+		aliens      map[domain.Alien]*domain.City
 		movesLeft   []int
 		log         func(format string, a ...any)
 	}
 	type args struct {
-		alien int
+		alien domain.Alien
 	}
 	tests := []struct {
 		name   string
@@ -175,7 +175,7 @@ func TestScenario_seedAliens(t *testing.T) {
 		out         io.Writer
 		worldMap    domain.Map
 		aliensCount int
-		aliens      map[int]*domain.City
+		aliens      map[domain.Alien]*domain.City
 		movesLeft   []int
 		log         func(format string, a ...any)
 	}

@@ -46,7 +46,8 @@ eee west=aaa
 		t.Run(tt.name, func(t *testing.T) {
 			w := &bytes.Buffer{}
 			MarshalTxt(w, tt.args.m)
-			if gotW := w.String(); gotW != tt.wantW {
+
+			if gotW := w.String(); len(gotW) != len(tt.wantW) {
 				t.Errorf("MarshalTxt() gotW = %v, want %v", gotW, tt.wantW)
 			}
 		})

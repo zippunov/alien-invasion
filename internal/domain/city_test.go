@@ -9,7 +9,7 @@ func TestCity_Directions(t *testing.T) {
 		Name      string
 		OutRoad   map[Direction]*City
 		inInroads RoadSet
-		Aliens    []int
+		Aliens    []Alien
 	}
 	tests := []struct {
 		name                string
@@ -54,7 +54,7 @@ func TestCity_String(t *testing.T) {
 		Name      string
 		OutRoad   map[Direction]*City
 		inInroads RoadSet
-		Aliens    []int
+		Aliens    []Alien
 	}
 	tests := []struct {
 		name   string
